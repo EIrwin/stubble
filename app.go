@@ -11,7 +11,7 @@ import (
 
 const (
 	version  = "0.0.1"
-	title    = "Stubby - Mock JSON API Generator"
+	title    = "Stubble - Mock JSON API Generator"
 	pathFlag = "path"
 )
 
@@ -32,7 +32,7 @@ var app = cli.New(version, title, func(c cli.Command) {
 })
 
 func init() {
-	app.DefineStringFlag("path", "", "Path to .yaml file defining Stubby configuration")
+	app.DefineStringFlag("path", "", "Path to .yaml file defining Stubble configuration")
 	app.AliasFlag('p', "path")
 }
 

@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	templateName = "Stubby"
+	templateName = "Stubble"
 )
 
 type Generator struct {
@@ -80,7 +80,7 @@ func generateEndpointMap(definitions []endpoints.Endpoint) map[string][]endpoint
 }
 
 func writeFile(buffer *bytes.Buffer) error {
-	f, err := os.Create("stubby.go")
+	f, err := os.Create("stubble.go")
 	if err != nil {
 		return err
 	}
@@ -109,7 +109,7 @@ import (
 )
 
 func main(){
-log.Println("Running stubby server on {{.Host}}:{{.Port}}")
+log.Println("Running stubble server on {{.Host}}:{{.Port}}")
 {{with .EndpointMap}}
     {{ range $key, $value := . }}
         {{with $value}}

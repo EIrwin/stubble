@@ -1,14 +1,14 @@
-#stubby - Mock JSON API Generator
+#stubble - Mock JSON API Generator
 
-## What is stubby?
-Stubby is a mock JSON API generator that uses a YAML specification to define mock API endpoints and responses.
+## What is stubble?
+Stubble is a mock JSON API generator that uses a YAML specification to define mock API endpoints and responses.
 
-## Why stubby?
-Current API response mocking solutions bloat client and/or server side code. Stubby can be ran 100% from your client and server leaving it clean and free of unecessary bloat.
+## Why stubble?
+Current API response mocking solutions bloat client and/or server side code. Stubble can be ran 100% from your client and server leaving it clean and free of unecessary bloat.
 
 ## Example
   
-Stubby expects a simple `YAML` configuration to generate a mock JSON API. 
+Stubble expects a simple `YAML` configuration to generate a mock JSON API. 
  
  ``` 
 host: "localhost"
@@ -23,11 +23,11 @@ endpoints:
   - "POST /api/v1/groups responses/groups_post.json"
   ```
   
-Assuming binary is available, running the following will result in a stubby server being generated. The command assumes we have a file named `sample.yaml` that contains the configuration above.
+Assuming binary is available, running the following will result in a stubble server being generated. The command assumes we have a file named `sample.yaml` that contains the configuration above.
 
-`./stubby -p=sample.yml`
+`./stubble -p=sample.yml`
 
-This results in the following `stubby.go` file to be generated.
+This results in the following `stubble.go` file to be generated.
 
 ```
 package main
@@ -39,7 +39,7 @@ import (
 )
 
 func main() {
-	log.Println("Running stubby server on localhost:8282")
+	log.Println("Running stubble server on localhost:8282")
 
 	http.HandleFunc("/api/v1/groups", func(w http.ResponseWriter, r *http.Request) {
 
@@ -83,9 +83,9 @@ func main() {
 }
 ```
 
-Finally, we can start our stubby server by simply running the command
+Finally, we can start our stubble server by simply running the command
 
-`go run stubby.go`
+`go run stubble.go`
 
 ## Samples
 To run the samples in `/samples`, perform the following steps
@@ -105,15 +105,15 @@ go install
 ```
 cd sample
 ```
-4.Run stubby generator against YAML configuration
+4.Run stubble generator against YAML configuration
 ```
-$GOPATH/bin/stubby -p=sample.yml
+$GOPATH/bin/stubble -p=sample.yml
 ```
-5.Start stubby server
+5.Start stubble server
 ```
-go run stubby.go
+go run stubble.go
 ```
-6.Test out stubby
+6.Test out stubble
 ```
 curl localhost:8282/api/v1/users
 ```
@@ -140,11 +140,11 @@ curl localhost:8282/api/v1/users
 
 ## Development
 
-Stubby uses go templates to build http handlers in Go.
+Stubble uses go templates to build http handlers in Go.
 
 ## Contributing
 
-1. Fork it ( https://github.com/eirwin/stubby/fork )
+1. Fork it ( https://github.com/eirwin/stubble/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
