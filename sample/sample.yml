@@ -1,0 +1,9 @@
+host: "localhost"
+
+port: "8282"
+
+endpoints:
+    - "POST /api/v1/users users.json"
+    - "GET /api/v1/users users.json 200"
+    - "PUT /api/v1/users /responses/users_put.json"
+    - "GET /api/v1/users /responses/users_get_error.json 400"
