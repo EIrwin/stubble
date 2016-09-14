@@ -1,12 +1,12 @@
 #stubby - Mock JSON API Generator
 
-# What is stubby?
+## What is stubby?
 Stubby is a mock JSON API generator that uses a YAML specification to define mock API endpoints and responses.
 
-# Why stubby?
+## Why stubby?
 Current API response mocking solutions bloat client and/or server side code. Stubby can be ran 100% from your client and server leaving it clean and free of unecessary bloat.
 
-# Example
+## Example
   
 Stubby expects a simple `YAML` configuration to generate a mock JSON API. 
  
@@ -86,4 +86,75 @@ func main() {
 Finally, we can start our stubby server by simply running the command
 
 `go run stubby.go`
+
+## Samples
+To run the samples in `/samples`, perform the following steps
+
+Try it out (Currently only can be done manually)
+
+1.Clone the repository
+```
+git clone git@github.com:eirwin/stubby
+```
+2.Build and/or install
+```
+go build
+go install
+```
+3.Navigate to `sample` directory
+```
+cd sample
+```
+4.Run stubby generator against YAML configuration
+```
+$GOPATH/bin/stubby -p=sample.yml
+```
+5.Start stubby server
+```
+go run stubby.go
+```
+6.Test out stubby
+```
+curl localhost:8282/api/v1/users
+```
+
+If everything was done correctly, you should see the following
+
+```
+curl localhost:8282/api/v1/users
+{
+    "users" : [
+        {
+            "name" : "User A"
+        },
+        {
+            "group": "User B"
+        },
+        {
+            "group": "User C"
+        }
+    ]
+}
+```
+
+
+## Development
+
+Stubby uses go templates to build http handlers in Go.
+
+## Contributing
+
+1. Fork it ( https://github.com/eirwin/stubby/fork )
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create a new Pull Request
+
+## Tasks
+1. Add Makefile
+2. Add additional content-type support.
+3. Implement HTTP response code support.
+4. Dynamic data in responses using templating.
+
+
 
