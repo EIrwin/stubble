@@ -19,9 +19,9 @@ type Generator struct {
 }
 
 type generatorContext struct {
-	Host      string
-	Port      string
-	Endpoints []endpoints.Endpoint
+	Host        string
+	Port        string
+	EndpointMap map[string][]endpoints.Endpoint
 }
 
 func (g Generator) Run() error {
@@ -30,10 +30,12 @@ func (g Generator) Run() error {
 		panic(err)
 	}
 
+	endpointMap := generateEndpointMap(endpoints)
+
 	context := generatorContext{
-		Host:      g.Config.Host,
-		Port:      g.Config.Port,
-		Endpoints: endpoints,
+		Host:        g.Config.Host,
+		Port:        g.Config.Port,
+		EndpointMap: endpointMap,
 	}
 
 	t := template.New(templateName)
@@ -62,6 +64,22 @@ func parseEndpoints(c config.Config) ([]endpoints.Endpoint, error) {
 	return parsed, nil
 }
 
+func generateEndpointMap(definitions []endpoints.Endpoint) map[string][]endpoints.Endpoint {
+	endpointMap := make(map[string][]endpoints.Endpoint, 0)
+	for _, def := range definitions {
+		_, ok := endpointMap[def.Path]
+		var defs []endpoints.Endpoint
+		if ok {
+			defs = endpointMap[def.Path]
+		} else {
+			defs = make([]endpoints.Endpoint, 0)
+		}
+		defs = append(defs, def)
+		endpointMap[def.Path] = defs
+	}
+	return endpointMap
+}
+
 func writeFile(buffer *bytes.Buffer) error {
 	f, err := os.Create("stubby.go")
 	if err != nil {
@@ -78,32 +96,39 @@ func New(c config.Config) Generator {
 	return Generator{
 		Config: c,
 	}
+
 }
 
 func generator() string {
-	return `package main 
+	return `
+package main 
 
-            import (
-                "net/http"
-                "io/ioutil"
-                "encoding/json"
-                "log"
-            )
+import (
+    "net/http"
+    "io/ioutil"
+    "encoding/json"
+    "log"
+)
 
-            func main(){
-                
-                {{with .Endpoints}}
-                    {{range .}}
-                        http.HandleFunc("{{.Path}}", func(w http.ResponseWriter, r *http.Request) {
-                            file,_ := ioutil.ReadFile("{{.FilePath}}")
-                            w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-                            if err := json.NewEncoder(w).Encode(file); err != nil {
-                                panic(err)
-                            }
-                        })
-                    {{end}}
+func main(){
+log.Println("Running stubby server on {{.Host}}:{{.Port}}")
+{{with .EndpointMap}}
+    {{ range $key, $value := . }}
+        {{with $value}}
+            http.HandleFunc("{{ $key }}", func(w http.ResponseWriter, r *http.Request) {
+                {{ range .}}
+                    if "{{ .Method }}" == r.Method {
+                        file,_ := ioutil.ReadFile("{{.FilePath}}")
+                        w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+                        if err := json.NewEncoder(w).Encode(file); err != nil {
+                            panic(err)
+                        }
+                    }
                 {{end}}
-
-                log.Fatal(http.ListenAndServe("{{.Host}}:{{.Port}}", nil))
-            }`
+            })
+        {{end}}
+    {{end}}
+{{end}}
+log.Fatal(http.ListenAndServe("{{.Host}}:{{.Port}}", nil))
+}`
 }
