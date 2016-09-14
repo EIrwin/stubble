@@ -1,0 +1,13 @@
+{
+    "groups" : [
+        {
+            "name" : "Group A"
+        },
+        {
+            "group": "Group B"
+        },
+        {
+            "group": "Group C"
+        }
+    ]
+}

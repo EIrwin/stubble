@@ -1,3 +1,13 @@
 {
-    "test": "users_get.json"
+    "users" : [
+        {
+            "name" : "User A"
+        },
+        {
+            "group": "User B"
+        },
+        {
+            "group": "User C"
+        }
+    ]
 }

@@ -10,7 +10,6 @@ import (
 )
 
 const (
-	templatePath = "generator.tmpl"
 	templateName = "Stubby"
 )
 

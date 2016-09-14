@@ -3,7 +3,8 @@ host: "localhost"
 port: "8282"
 
 endpoints:
-    - "POST /api/v1/users responses/users_post.json"
     - "GET /api/v1/users responses/users_get.json"
+    - "POST /api/v1/users responses/users_post.json"
     - "PUT /api/v1/users responses/users_put.json"
     - "GET /api/v1/groups responses/groups_get.json"
+    - "POST /api/v1/groups responses/groups_post.json"

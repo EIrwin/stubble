@@ -11,7 +11,7 @@ import (
 
 const (
 	version  = "0.0.1"
-	title    = "Stubby Mock JSON API Generator"
+	title    = "Stubby - Mock JSON API Generator"
 	pathFlag = "path"
 )
 
