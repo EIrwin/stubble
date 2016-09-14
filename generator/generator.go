@@ -106,7 +106,6 @@ package main
 import (
     "net/http"
     "io/ioutil"
-    "encoding/json"
     "log"
 )
 
@@ -120,9 +119,7 @@ log.Println("Running stubby server on {{.Host}}:{{.Port}}")
                     if "{{ .Method }}" == r.Method {
                         file,_ := ioutil.ReadFile("{{.FilePath}}")
                         w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-                        if err := json.NewEncoder(w).Encode(file); err != nil {
-                            panic(err)
-                        }
+                        w.Write(file)
                     }
                 {{end}}
             })
