@@ -94,7 +94,7 @@ Try it out (Currently only can be done manually)
 
 1.Clone the repository
 ```
-git clone git@github.com:eirwin/stubby
+git clone git@github.com:eirwin/stubble
 ```
 2.Build and/or install
 ```
