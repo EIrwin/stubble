@@ -1,0 +1,11 @@
+
+language: go
+go:
+  - 1.6
+  - tip
+install:
+  - make install-deps
+script: make test
+matrix:
+  allow_failures:
+    - go: tip
