@@ -1,6 +1,6 @@
 test:
-	cd endpoints/test && go test
-	cd config/test && go test
+	cd endpoints && go test
+	cd config && go test
 
 install-deps:
 	go get github.com/jwaldrip/odin/cli

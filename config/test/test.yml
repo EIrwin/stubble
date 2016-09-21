@@ -1,6 +1,0 @@
-host: "localhost"
-
-port: "8282"
-
-endpoints:
-    - "GET /test test_response.json"
