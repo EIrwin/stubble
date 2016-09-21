@@ -10,7 +10,7 @@ Current API response mocking solutions bloat client and/or server side code. Stu
   
 Stubble expects a simple `YAML` configuration to generate a mock JSON API. 
  
- ``` 
+ ```yaml
 host: "localhost"
 
 port: "8282"
@@ -29,7 +29,7 @@ Assuming binary is available, running the following will result in a stubble ser
 
 This results in the following `stubble.go` file to be generated.
 
-```
+```go
 package main
 
 import (
