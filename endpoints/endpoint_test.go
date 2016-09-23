@@ -7,13 +7,22 @@ import (
 
 const (
 	testDefinition = "GET /test test_response.json"
+	testDefinitionMultipleSpaces = "GET  /test test_response.json"
 	testMethod     = "GET"
 	testPath       = "/test"
 	testFilePath   = "test_response.json"
 )
 
 func TestParse(t *testing.T) {
-	e, err := Parse(testDefinition)
+	assertParseResult(testDefinition,t)
+}
+
+func TestParseWithMultipleSpaces(t *testing.T){
+	assertParseResult(testDefinitionMultipleSpaces,t)
+}
+
+func assertParseResult(definition string,t *testing.T) {
+	e, err := Parse(definition)
 	if err != nil {
 		t.Error(err.Error())
 	}

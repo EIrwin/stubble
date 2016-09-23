@@ -15,6 +15,7 @@ type Endpoint struct {
 func Parse(definition string) (Endpoint, error) {
 	var endpoint Endpoint
 	parts := strings.Split(definition, " ")
+	parts = removeEmptyParts(parts)
 	length := len(parts)
 
 	//parse Method
@@ -37,4 +38,14 @@ func Parse(definition string) (Endpoint, error) {
 		endpoint.Code, _ = strconv.Atoi(parts[3])
 	}
 	return endpoint, nil
+}
+
+func removeEmptyParts(p []string) []string {
+	var parts []string
+	for _,part := range p {
+		if part != "" {
+			parts = append(parts,part)
+		}
+	}
+	return parts
 }
