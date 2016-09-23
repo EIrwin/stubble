@@ -1,5 +1,7 @@
 #stubble - Mock JSON API Generator [![Build Status](https://travis-ci.org/EIrwin/stubble.svg?branch=master)](https://travis-ci.org/eirwin/stubble)
 
+<img src="stubble-gopher.png" height="300" width="210" />
+
 ## What is stubble?
 Stubble is a mock JSON API generator that uses a YAML specification to define mock API endpoints and responses.
 
